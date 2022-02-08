@@ -1,0 +1,16 @@
+package ja.lc;
+
+import java.util.Scanner;
+
+public class 연산자_자가진단1_518 {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+
+		int num1 = sc.nextInt();
+		int num2 = sc.nextInt();
+		
+		System.out.printf("%d %d",num1 + 100, + num2 % 10);
+	}
+
+}
