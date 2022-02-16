@@ -10,6 +10,13 @@ import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
+/**
+ * @author shinz
+ * @since 2022. 2. 16.
+ * @see https://swexpertacademy.com/main/talk/solvingClub/problemSubmitHistory.do?contestProbId=AWXRDL1aeugDFAUo&solveclubId=AX5LR3N6iOoDFAX1&problemBoxTitle=2%EC%9B%94+3%EC%A3%BC&problemBoxCnt=3&probBoxId=AX71HJlaULgDFAW0
+ * @performance 25,300 kb 133 ms
+ * @category 시뮬레이션
+ */
 public class SWEA_모의테스트_5644_무선충전 {
 	static int[][] map;
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
