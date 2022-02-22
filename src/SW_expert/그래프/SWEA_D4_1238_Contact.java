@@ -1,4 +1,4 @@
-package SW_expert;
+package SW_expert.그래프;
 
 import java.io.BufferedReader;
 import java.io.IOException;
