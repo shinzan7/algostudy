@@ -1,4 +1,4 @@
-package backjoon;
+package backjoon.그리디;
 
 import java.util.Scanner;
 

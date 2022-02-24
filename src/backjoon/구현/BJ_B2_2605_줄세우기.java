@@ -1,4 +1,4 @@
-package backjoon;
+package backjoon.구현;
 
 import java.io.StringReader;
 import java.util.Arrays;

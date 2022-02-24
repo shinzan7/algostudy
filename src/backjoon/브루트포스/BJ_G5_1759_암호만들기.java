@@ -1,4 +1,4 @@
-package backjoon;
+package backjoon.브루트포스;
 
 import java.io.StringReader;
 import java.util.ArrayList;
