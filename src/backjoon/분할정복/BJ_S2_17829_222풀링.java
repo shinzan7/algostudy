@@ -29,10 +29,8 @@ public class BJ_S2_17829_222풀링 {
 		int result[][] = new int[N/2][N/2]; //변환결과
 		int sort[] = new int[4];
 
-		while(true) {
-			if(result.length==1) break;
+		while(true) {	
 			result = new int[start.length / 2][start.length / 2];
-			
 			for (int r = 0; r < start.length; r += 2) {
 				for (int c = 0; c < start.length; c += 2) {
 					sort[0] = start[r][c];
@@ -43,6 +41,7 @@ public class BJ_S2_17829_222풀링 {
 					result[r/2][c/2] = sort[2];
 				}
 			}
+			if(result.length==1) break;
 			start = result.clone();
 		}
 		System.out.println(result[0][0]);
