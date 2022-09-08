@@ -1,4 +1,4 @@
-package backjoon;
+package backjoon.탐색;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
