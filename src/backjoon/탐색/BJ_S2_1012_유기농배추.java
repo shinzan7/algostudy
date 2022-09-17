@@ -4,75 +4,125 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class BJ_S2_1012_유기농배추 {
-	
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	static StringBuilder sb = new StringBuilder();
 	static StringTokenizer st;
-	static int T;
-	static int R, C, K; //가로세로 길이, K 배추 개수
-	static int X, Y;// 배추 좌표
-	static int[][] map;
-	static int[][] deltas = {{-1,0}, {1,0}, {0,-1}, {0,1}}; //상하좌우
-	static int count;
 	
-	public static void main(String[] args) throws NumberFormatException, IOException {
-		//br = new BufferedReader(new StringReader(src));
-		T = Integer.parseInt(br.readLine());
+	static boolean[][] map, isVisit;
+	static int worm, R, C;
+	static int[][] deltas = {{1,0},{0,1},{0,-1},{-1,0}};
+	
+	public static void main(String[] args) throws IOException{
+		br = new BufferedReader(new StringReader(src));
+		int T = Integer.parseInt(br.readLine());
 		
-		for (int t = 1; t <= T; t++) {
+		for (int t = 1; t <= T; t++) {			
 			st = new StringTokenizer(br.readLine());
 			C = Integer.parseInt(st.nextToken());
 			R = Integer.parseInt(st.nextToken());
-			K = Integer.parseInt(st.nextToken());
-			count = 0;
-			map = new int[R][C];
+			map = new boolean[R][C];
+			isVisit = new boolean[R][C];
+			worm = 0;
 			
-			for (int k = 0; k < K; k++) {
+			int numCabbage = Integer.parseInt(st.nextToken());
+			for (int i = 0; i < numCabbage; i++) {
 				st = new StringTokenizer(br.readLine());
-				Y = Integer.parseInt(st.nextToken());
-				X = Integer.parseInt(st.nextToken());
-				map[X][Y] = 1;
+				int c = Integer.parseInt(st.nextToken());
+				int r = Integer.parseInt(st.nextToken());
+				map[r][c] = true; //양배추 심은곳
 			}
-			//입력완료
 			
-			for (int r = 0; r < R; r++) {
-				for (int c = 0; c < C; c++) {
-					if(map[r][c] == 1) {
-						dfs(r, c);
-						count++;
-					}
-				}
-			}
-			System.out.println(count);
+			bfs();
 			
-		}//T.C
-		
+			//dfs로 풀기
+//			for (int r = 0; r < R; r++) {
+//				for (int c = 0; c < C; c++) {
+//					if(map[r][c] && !isVisit[r][c]) {
+//						worm++;
+//						dfs(r, c);
+//					}
+//				}
+//			}
+			
+			sb.append(worm).append("\n");
+		}//TC
+		System.out.println(sb);
 	}//main
 	
-	public static void dfs(int r, int c) {
-		map[r][c] = -1;
+	static boolean isIn(int r, int c) {
+		return (r>=0 && r<R && c>=0 && c<C);
+	}
+	
+	private static void dfs(int cr, int cc) {
+		isVisit[cr][cc] = true;
 		
 		for (int i = 0; i < 4; i++) {
-			int nr = r + deltas[i][0];
-			int nc = c + deltas[i][1];
+			int nr = cr + deltas[i][0];
+			int nc = cc + deltas[i][1];
 			
-			if(nr>=0 && nr<R && nc>=0 && nc<C) { //가려는 곳이 map 내부일때
-				if(map[nr][nc]==1) { //가려는 곳이 1이면
-					dfs(nr, nc);
-				}
+			if(isIn(nr, nc) && map[nr][nc] && !isVisit[nr][nc]) {
+				dfs(nr, nc);
 			}
 		}
 		
 	}
+	
+	private static void bfs() {
+		Queue<Point> q = new LinkedList<>();
+		
+		for (int r = 0; r < R; r++) {
+			for (int c = 0; c < C; c++) {
+				//시작점 찾기
+				if(map[r][c] && !isVisit[r][c]) {
+					worm++;
+					q.add(new Point(r, c));
+					isVisit[r][c] = true;
+					
+					while(!q.isEmpty()) {
+						Point cur = q.poll();
+						
+						for (int i = 0; i < 4; i++) {
+							int nr = cur.r + deltas[i][0];
+							int nc = cur.c + deltas[i][1];
+							
+							if(isIn(nr, nc) && map[nr][nc] && !isVisit[nr][nc]) {
+								q.add(new Point(nr, nc));
+								isVisit[nr][nc] = true;
+							}
+						}
+						
+					}
+					
+				}
+				
+			}
+		}
+		
+	}
+	
+	static class Point{
+		int r, c;
 
-//	public static String src = "1\r\n" + 
-//			"5 3 6\r\n" + 
-//			"0 2\r\n" + 
-//			"1 2\r\n" + 
-//			"2 2\r\n" + 
-//			"3 2\r\n" + 
-//			"4 2\r\n" + 
-//			"4 0";
+		public Point(int r, int c) {
+			super();
+			this.r = r;
+			this.c = c;
+		}
+		
+	}
+
+	static String src = "1\r\n" + 
+			"5 3 6\r\n" + 
+			"0 2\r\n" + 
+			"1 2\r\n" + 
+			"2 2\r\n" + 
+			"3 2\r\n" + 
+			"4 2\r\n" + 
+			"4 0";
+	
 }
